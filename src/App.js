@@ -3,6 +3,12 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from "react-router-dom";
+import Login, { LoginCallback } from './components/login'
 
 let theme = createMuiTheme({
   palette: {
@@ -29,15 +35,25 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
-          <div className="App-header">
-            <h2>Tasks Management</h2>
-            <Button variant="contained" color="primary">
-              Add tasks
-          </Button>
-          </div>
-        </div>
-      </ThemeProvider>
+        <Router>
+          <Route exact path="/">
+            <div className="App">
+              <div className="App-header">
+                <h2>Tasks Management</h2>
+                <Button variant="contained" color="primary">
+                  Add tasks
+                    </Button>
+              </div>
+            </div>
+            <Link to="/login">Login</Link>
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/login/callback" component={LoginCallback}>
+          </Route>
+        </Router>
+      </ThemeProvider >
     );
   }
 }
