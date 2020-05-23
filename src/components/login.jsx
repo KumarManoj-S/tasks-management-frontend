@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import googleIcon from '../images/google-icon.svg';
 import Grid from '@material-ui/core/Grid';
-import { SERVER_URL } from '../constants'
+import config from '../config'
 import queryString from 'query-string';
 import { getToken } from '../api/auth'
 
@@ -37,7 +37,7 @@ class Login extends Component {
                     style={{ minHeight: '100vh' }}
                 >
                     <Grid item xs={3}>
-                        <a href={SERVER_URL + '/oauth2/login'} style={{ textDecoration: 'none' }}>
+                        <a href={config.SERVER_URL + '/oauth2/login'} style={{ textDecoration: 'none' }}>
                             <Button variant="contained" color="secondary">
                                 <img src={googleIcon} height="20" />
                                 <span style={{ marginLeft: 15 }}>Sign in with Google</span>

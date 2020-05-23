@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { SERVER_URL } from '../constants'
+import config from '../config'
 
 axios.defaults.withCredentials = true;
 
 export const getToken = (code) => {
-    return axios.get(SERVER_URL + '/oauth2/token?code=' + code, { withCredentials: true })
+    return axios.get(config.SERVER_URL + '/oauth2/token?code=' + code, { withCredentials: true })
         .then(function (response) {
             // handle success
             console.log(response);

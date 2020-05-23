@@ -1,1 +1,0 @@
-export const SERVER_URL = 'http://api.tasks.com:3001'
