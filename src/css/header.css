@@ -1,0 +1,12 @@
+
+
+  .header{
+    width: 100%;
+    height: 180px;
+    position: absolute;
+    background-image: linear-gradient(#1568ac, #5995de);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
+  }

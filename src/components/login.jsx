@@ -6,7 +6,6 @@ import config from '../config'
 import queryString from 'query-string';
 import { getToken } from '../api/auth'
 
-
 export class LoginCallback extends Component {
     componentDidMount() {
         const { code } = queryString.parse(this.props.location.search);
@@ -21,8 +20,6 @@ export class LoginCallback extends Component {
         );
     }
 }
-
-
 
 class Login extends Component {
     render() {
@@ -39,7 +36,7 @@ class Login extends Component {
                     <Grid item xs={3}>
                         <a href={config.SERVER_URL + '/oauth2/login'} style={{ textDecoration: 'none' }}>
                             <Button variant="contained" color="secondary">
-                                <img src={googleIcon} height="20" />
+                                <img src={googleIcon} height="20" alt="Google icon" />
                                 <span style={{ marginLeft: 15 }}>Sign in with Google</span>
                             </Button>
                         </a>

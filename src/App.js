@@ -8,7 +8,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Login, { LoginCallback } from './components/login'
+import Login, { LoginCallback } from './components/Login'
+import Home from './components/Home'
 
 let theme = createMuiTheme({
   palette: {
@@ -49,6 +50,9 @@ class App extends Component {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/home">
+            <Home />
           </Route>
           <Route exact path="/login/callback" component={LoginCallback}>
           </Route>
