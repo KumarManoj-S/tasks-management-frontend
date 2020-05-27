@@ -23,9 +23,8 @@ const DetailedExpansionPanel = (props) => {
 
     return (
         <div className={classes.root}>
-            <ExpansionPanel >
+            <ExpansionPanel expanded={expanded} >
                 <ExpansionPanelSummary
-                    expanded={expanded}
                     aria-controls="panel1c-content"
                     id="panel1c-header"
                     className={classes.expansionPanelSummary}

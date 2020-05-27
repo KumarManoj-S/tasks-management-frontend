@@ -17,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskNameInput = (props) => {
     const classes = useStyles();
+    const { autoFocus } = props;
     return (
         (
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl} >
-                        <TextField id="standard-required" placeholder="Add a new task..." />
+                        <TextField autoFocus={autoFocus} id="standard-required" placeholder="Add a new task..." />
                     </FormControl>
                 </Grid>
             </Grid>
