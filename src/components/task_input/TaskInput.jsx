@@ -37,18 +37,45 @@ class TaskInput extends Component {
     setWrapperRef = (node) => {
         this.wrapperRef = node;
     }
+    handleTaskNameInputChange = (taskName) => {
+        this.setState((prevState) => ({
+            data: {
+                ...prevState.data,
+                taskName
+            }
+        }));
+    }
+    handleDueDateInputChange = (dueDate) => {
+        this.setState((prevState) => ({
+            data: {
+                ...prevState.data,
+                dueDate
+            }
+        }));
+    }
+    handleLabelsInputChange = (labels) => {
+        this.setState((prevState) => ({
+            data: {
+                ...prevState.data,
+                labels
+            }
+        }));
+    }
     render() {
         const { expanded, autoFocus } = this.state;
         return (
             <div ref={this.setWrapperRef}>
                 <ExpansionPanel
-                    ExpansionPanelSummaryComponent={
-                        (props) => (
-                            <div style={{ width: '100%' }} onClick={this.openTaskInput}>
-                                <TaskNameInput autoFocus={autoFocus} />
-                            </div>
-                        )
-                    }
+                    ExpansionPanelSummaryComponent_props={{
+                        onClick: this.openTaskInput,
+                        autoFocus: autoFocus,
+                        onChangeHandler: this.handleTaskNameInputChange
+                    }}
+                    ExpansionPanelSummaryComponent={TaskNameInput}
+                    ExpansionPanelDetailsComponent_props={{
+                        onDuedateChange: this.handleDueDateInputChange,
+                        onLabelsChange: this.handleLabelsInputChange
+                    }}
                     ExpansionPanelDetailsComponent={AdditionalTaskDetailsInput}
                     ExpansionPanelActionsComponent={
                         (props) => (

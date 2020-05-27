@@ -14,7 +14,10 @@ class LabelSelect extends Component {
     }
 
     handleInputChange = (newValue) => {
+        const { onChangeHandler } = this.props;
+
         this.setState({ values: newValue });
+        onChangeHandler(newValue);
     };
 
     filterLabels = (inputValue) => {
