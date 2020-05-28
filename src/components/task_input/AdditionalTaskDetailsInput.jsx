@@ -17,9 +17,29 @@ const useStyles = makeStyles((theme) => ({
 
 const AdditionalTaskDetailsInput = (props) => {
     const classes = useStyles()
-    const { onDuedateChange, onLabelsChange } = props;
+    const { onDuedateChange, onLabelsChange, onDescriptionChange } = props;
     return (
         <Grid container className={classes.root} spacing={2}>
+            <Grid item xs={12}>
+                <FormControl className={classes.formControl} >
+                    <TextField
+                        id="datetime-local"
+                        variant="outlined"
+                        margin="dense"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        color="primary"
+                        label="Description"
+                        placeholder="Select Due date"
+                        multiline
+                        inputProps={{ maxLength: 500 }}
+                        rows={3}
+                        helperText="Maximum 500 characters"
+                        onChange={(e, value) => onDescriptionChange(e.target.value)}
+                    />
+                </FormControl>
+            </Grid>
             <Grid item xs={12}>
                 <FormControl className={classes.formControl} >
                     <TextField
