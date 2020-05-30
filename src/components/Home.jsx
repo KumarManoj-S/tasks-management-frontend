@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Header from './ui/Header';
 import TaskInput from './task_input/TaskInput';
+import { TaskListView } from './task_list/TaskListView';
 
 const styles = (theme) => ({
     root: {
@@ -23,6 +24,7 @@ class Home extends Component {
                                 <Grid item xs={10} sm={5} md={5} mt={10}>
                                     <Box mt={8}>
                                         <TaskInput />
+                                        <TaskListView />
                                     </Box>
                                 </Grid>
                             </Grid>
