@@ -13,15 +13,11 @@ const useStyles = makeStyles({
     title: {
         fontSize: 14
     },
-    pos: {
-        marginBottom: 12
-    }
 });
 
 
 export default function TaskView(props) {
     const task = props;
-    console.log(task)
     const classes = useStyles();
 
     const editHandler = () => {
@@ -29,10 +25,10 @@ export default function TaskView(props) {
     };
 
     const deleteHandler = () => {
-        alert('Delete')
+        props.deleteHandler(task.id)
     }
     return (
-        <Card className={classes.root} variant="outlined">
+        <Card className={classes.root} variant="outlined" draggable="true">
             <CardContent>
                 <Typography className={classes.title} color="textPrimary" gutterBottom>
                     {task.name}
@@ -44,10 +40,10 @@ export default function TaskView(props) {
                 <Typography>
                     {task.dueDate}{" "}
                     <Button size="small" onClick={editHandler}>
-                        Delete
+                        Edit
           </Button>{" "}
                     <Button size="small" onClick={deleteHandler}>
-                        Edit
+                        Delete
           </Button>
                 </Typography>
             </CardContent>

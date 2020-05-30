@@ -1,7 +1,6 @@
-const styleLabels = (arr) => {
-    const val = arr.map(o => o.value);
+const styledLabels = (arr) => {
     let data;
-    val.forEach(element => {
+    arr.forEach(element => {
         if (data) {
             data = data + '#' + element + ' ';
         }
@@ -12,4 +11,4 @@ const styleLabels = (arr) => {
     return data;
 };
 
-export default styleLabels
+export default styledLabels
