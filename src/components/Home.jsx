@@ -8,6 +8,7 @@ import { getCategories } from '../api/categories';
 import SideNav from './ui/SideNav';
 import MenuBar from './ui/MenuBar';
 import { TaskListView } from './task_list/TaskListView';
+import NewCategoryInput from './NewCategoryInput'
 
 
 const styles = (theme) => ({
@@ -18,14 +19,24 @@ const styles = (theme) => ({
 });
 
 class Home extends Component {
-    state = { value: 0, categories: [], mobileOpen: false, selectedCategory: {} }
+    state = { value: 0, categories: [], mobileOpen: false, selectedCategory: {}, openCategoryDialog: false }
     handleChange = (event, newValue) => {
         console.log("newValue", newValue)
         this.setState({ value: newValue });
     };
-    async componentDidMount() {
-        const categories = await getCategories();
-        this.setState({ categories, selectedCategory: { index: 0, text: categories[0] } });
+    componentDidMount() {
+        getCategories()
+            .then(() => ["Personal",
+                "Work",
+                "Tour",
+                "Gym",
+                "New Office"])
+            .then(categories => {
+                console.log("categories", categories);
+                this.setState({ categories, selectedCategory: { index: 0, text: categories.length !== 0 ? categories[0] : 'Personal' } })
+            })
+            .catch(err => this.setState({ categories: [], selectedCategory: { index: 0, text: 'Personal' } }))
+
     }
     handleDrawerToggle = () => {
         const { mobileOpen } = this.state;
@@ -34,12 +45,26 @@ class Home extends Component {
     handleCategorySelection = (selectedCategory) => {
         this.setState({ selectedCategory })
     }
+    handleAddNewCategory = () => {
+        this.setState({ openCategoryDialog: true });
+    }
+    handleCloseCategoryDialog = () => {
+        this.setState({ openCategoryDialog: false });
+    }
+    handleCreateCategoryDialog = () => {
+        console.log("created");
+        this.setState({ openCategoryDialog: false });
+    }
     render() {
         const { classes } = this.props;
-        const { categories, mobileOpen, selectedCategory } = this.state;
+        const { categories, mobileOpen, selectedCategory, openCategoryDialog } = this.state;
         return (
             <div>
                 <Header>
+                    <NewCategoryInput
+                        open={openCategoryDialog}
+                        handleClose={this.handleCloseCategoryDialog}
+                        handleCreate={this.handleCreateCategoryDialog} />
                     <MenuBar handleDrawerToggle={this.handleDrawerToggle} title={selectedCategory.text} />
                     <SideNav
                         handleDrawerToggle={this.handleDrawerToggle}
@@ -47,6 +72,7 @@ class Home extends Component {
                         mobileOpen={mobileOpen}
                         categories={categories}
                         selectedCategory={selectedCategory}
+                        handleAddNewCategory={this.handleAddNewCategory}
                     />
                     <Grid container className={classes.root} spacing={2}>
                         <Grid item xs={12}>
