@@ -7,6 +7,8 @@ import TaskInput from './task_input/TaskInput';
 import { getCategories } from '../api/categories';
 import SideNav from './ui/SideNav';
 import MenuBar from './ui/MenuBar';
+import { TaskListView } from './task_list/TaskListView';
+
 
 const styles = (theme) => ({
     root: {
@@ -52,6 +54,7 @@ class Home extends Component {
                                 <Grid item xs={10} sm={5} md={5} mt={10}>
                                     <Box mt={8}>
                                         <TaskInput />
+                                        <TaskListView />
                                     </Box>
                                 </Grid>
                             </Grid>
