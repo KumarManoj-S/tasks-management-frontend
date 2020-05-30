@@ -31,7 +31,7 @@ const AdditionalTaskDetailsInput = (props) => {
                         }}
                         color="primary"
                         label="Description"
-                        placeholder="Select Due date"
+                        placeholder=""
                         multiline
                         inputProps={{ maxLength: 500 }}
                         rows={3}
