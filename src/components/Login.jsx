@@ -20,6 +20,7 @@ class LoginCallbackComponent extends Component {
             cookies.set('userName', res.name, { path: '/', domain: config.COOKIE_DOMAIN })
             this.props.history.push('/')
         } catch (err) {
+            console.log("set cookie error", err);
             this.props.history.push('/login')
         }
     }
