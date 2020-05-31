@@ -31,7 +31,7 @@ class TaskFilter extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.filter}>
-        <FilterListIcon onClick={this.onFilterClick} color="secondary" />
+        <FilterListIcon onClick={this.onFilterClick} />
         <Dialog open={isFilterOpen} onClose={this.onFilterClose}>
           <DialogTitle id="simple-dialog-title">Select Filters</DialogTitle>
           <DialogContent>{this.renderFilterSection()}</DialogContent>
