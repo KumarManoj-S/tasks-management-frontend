@@ -1,14 +1,6 @@
 const styledLabels = (arr) => {
-    let data;
-    arr.forEach(element => {
-        if (data) {
-            data = data + '#' + element + ' ';
-        }
-        else {
-            data = '#' + element + ' ';
-        }
-    });
-    return data;
+    const prefixedLabels = arr.map(x => '#' + x.value);
+    return prefixedLabels.reduce((a, b) => a + ' ' + b, '');
 };
 
 export default styledLabels
