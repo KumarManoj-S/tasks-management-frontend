@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AdditionalTaskDetailsInput = (props) => {
     const classes = useStyles()
-    const { onDuedateChange, onLabelsChange, onDescriptionChange } = props;
+    const { onDuedateChange, onLabelsChange, onDescriptionChange, description, dueDate } = props;
     return (
         <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12}>
@@ -33,6 +33,7 @@ const AdditionalTaskDetailsInput = (props) => {
                         label="Description"
                         placeholder=""
                         multiline
+                        defaultValue={description}
                         inputProps={{ maxLength: 500 }}
                         rows={3}
                         helperText="Maximum 500 characters"
@@ -52,6 +53,7 @@ const AdditionalTaskDetailsInput = (props) => {
                         }}
                         color="primary"
                         label="Due date"
+                        defaultValue={dueDate}
                         placeholder="Select Due date"
                         onChange={(e, value) => { console.log(value); return onDuedateChange(e.target.value) }}
                     />
