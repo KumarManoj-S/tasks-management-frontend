@@ -10,6 +10,7 @@
     "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-avatar": "^3.9.6",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.2.0",

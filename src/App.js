@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Login, { LoginCallback } from './components/Login'
 import Home from './components/Home'
+import { CookiesProvider } from 'react-cookie';
 
 let theme = createMuiTheme({
   palette: {
@@ -35,29 +36,31 @@ theme = responsiveFontSizes(theme);
 class App extends Component {
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Route exact path="/">
-            <div className="App">
-              <div className="App-header">
-                <h2>Tasks Management</h2>
-                <Button variant="contained" color="primary">
-                  Add tasks
+      <CookiesProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Route exact path="/">
+              <div className="App">
+                <div className="App-header">
+                  <h2>Tasks Management</h2>
+                  <Button variant="contained" color="primary">
+                    Add tasks
                     </Button>
+                </div>
               </div>
-            </div>
-            <Link to="/login">Login</Link>
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/login/callback" component={LoginCallback}>
-          </Route>
-        </Router>
-      </ThemeProvider >
+              <Link to="/login">Login</Link>
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/login/callback" component={LoginCallback}>
+            </Route>
+          </Router>
+        </ThemeProvider >
+      </CookiesProvider>
     );
   }
 }

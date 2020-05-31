@@ -5,11 +5,16 @@ import Grid from '@material-ui/core/Grid';
 import config from '../config'
 import queryString from 'query-string';
 import { getToken } from '../api/auth'
+import { withCookies } from 'react-cookie';
 
-export class LoginCallback extends Component {
-    componentDidMount() {
+class LoginCallbackComponent extends Component {
+    async componentDidMount() {
+        const { cookies } = this.props;
         const { code } = queryString.parse(this.props.location.search);
-        getToken(code)
+        const res = await getToken(code);
+        cookies.set('authToken', res.idToken, { path: '/' })
+        cookies.set('userId', res.userId, { path: '/' })
+        cookies.set('userName', res.name, { path: '/' })
     }
 
     render() {
@@ -20,6 +25,8 @@ export class LoginCallback extends Component {
         );
     }
 }
+
+export const LoginCallback = withCookies(LoginCallbackComponent);
 
 class Login extends Component {
     render() {
