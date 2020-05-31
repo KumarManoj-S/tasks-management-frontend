@@ -1,12 +1,12 @@
 .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
-    display: inline-flex;
-    margin-left: -37%;
+    display: flex;
+    margin-left: -20%;
     width: auto;
   }
   .my-masonry-grid_column {
-
+    padding-right: 11%;
     /* background-clip: padding-box; */
   }
   
