@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from '@material-ui/core/Button';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Login, { LoginCallback } from './components/Login'
-import Home from './components/Home'
+import HomeWrapper from './components/HomeWrapper'
 import { CookiesProvider } from 'react-cookie';
 
 let theme = createMuiTheme({
@@ -39,28 +37,15 @@ class App extends Component {
       <CookiesProvider>
         <ThemeProvider theme={theme}>
           <Router>
-            <Route exact path="/">
-              <div className="App">
-                <div className="App-header">
-                  <h2>Tasks Management</h2>
-                  <Button variant="contained" color="primary">
-                    Add tasks
-                    </Button>
-                </div>
-              </div>
-              <Link to="/login">Login</Link>
-            </Route>
             <Route exact path="/login">
               <Login />
             </Route>
-            <Route exact path="/home">
-              <Home />
-            </Route>
+            <Route exact path="/" render={(props) => <HomeWrapper {...props} />} />
             <Route exact path="/login/callback" component={LoginCallback}>
             </Route>
           </Router>
         </ThemeProvider >
-      </CookiesProvider>
+      </CookiesProvider >
     );
   }
 }
