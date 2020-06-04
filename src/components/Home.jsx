@@ -31,22 +31,18 @@ class Home extends Component {
   };
   componentDidMount() {
     getCategories()
-      .then(() => ["Personal", "Work", "Tour", "Gym", "New Office"])
+      .then((res) => res.map(o => o.name))
       .then((categories) => {
-        console.log("categories", categories);
         this.setState({
           categories,
           selectedCategory: {
             index: 0,
-            text: categories.length !== 0 ? categories[0] : "Personal",
+            text: categories[0],
           },
         });
       })
       .catch((err) =>
-        this.setState({
-          categories: [],
-          selectedCategory: { index: 0, text: "Personal" },
-        })
+        alert("Error! please try after some time!")
       );
   }
   handleDrawerToggle = () => {

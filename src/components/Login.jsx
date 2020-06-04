@@ -14,10 +14,7 @@ class LoginCallbackComponent extends Component {
         const { cookies } = this.props;
         const { code } = queryString.parse(this.props.location.search);
         try {
-            const res = await getToken(code);
-            cookies.set('authToken', res.idToken, { path: '/', domain: config.COOKIE_DOMAIN })
-            cookies.set('userId', res.userId, { path: '/', domain: config.COOKIE_DOMAIN })
-            cookies.set('userName', res.name, { path: '/', domain: config.COOKIE_DOMAIN })
+            await getToken(code);
             this.props.history.push('/')
         } catch (err) {
             console.log("set cookie error", err);

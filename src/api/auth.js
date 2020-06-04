@@ -7,7 +7,6 @@ export const getToken = (code) => {
     return axios.get(config.SERVER_URL + '/oauth2/token?code=' + code, { withCredentials: true })
         .then(function (response) {
             console.log(response);
-            return response.data;
         })
         .catch(function (error) {
             console.log(error);
