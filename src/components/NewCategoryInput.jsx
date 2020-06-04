@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 
 const NewCategoryInput = (props) => {
     const { open, handleClose, handleCreate } = props;
+    const [category, setCategory] = React.useState('')
     return (
         <div>
             <Dialog
@@ -27,13 +28,14 @@ const NewCategoryInput = (props) => {
                         fullWidth
                         autoComplete='off'
                         variant="outlined"
+                        onChange={(e, value) => setCategory(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         cancel
                     </Button>
-                    <Button onClick={handleCreate} color="primary" >
+                    <Button onClick={() => handleCreate(category)} color="primary" >
                         Create
                     </Button>
                 </DialogActions>

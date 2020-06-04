@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Header from "./ui/Header";
 import TaskInput from "./task_input/TaskInput";
-import { getCategories } from "../api/categories";
+import { getCategories, createCategory } from "../api/categories";
 import SideNav from "./ui/SideNav";
 import MenuBar from "./ui/MenuBar";
 import { TaskListView } from "./task_list/TaskListView";
@@ -29,8 +29,11 @@ class Home extends Component {
     console.log("newValue", newValue);
     this.setState({ value: newValue });
   };
-  componentDidMount() {
-    getCategories()
+  async componentDidMount() {
+    await this.loadCategories();
+  }
+  loadCategories = async () => {
+    await getCategories()
       .then((res) => res.map(o => o.name))
       .then((categories) => {
         this.setState({
@@ -58,8 +61,10 @@ class Home extends Component {
   handleCloseCategoryDialog = () => {
     this.setState({ openCategoryDialog: false });
   };
-  handleCreateCategoryDialog = () => {
-    console.log("created");
+  handleCreateCategoryDialog = async (category) => {
+    await createCategory(category)
+      .then(async () => await this.loadCategories())
+      .catch(() => alert("Error creating a category!"));
     this.setState({ openCategoryDialog: false });
   };
   render() {
