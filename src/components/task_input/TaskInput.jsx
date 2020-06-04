@@ -8,7 +8,7 @@ import { createTasks } from '../../api/tasks'
 
 
 class TaskInput extends Component {
-    state = { expanded: false, autoFocus: false, open: false, data: {} }
+    state = { expanded: this.props.expanded || false, autoFocus: false, open: false, data: {} }
     componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false);
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -88,8 +88,24 @@ class TaskInput extends Component {
             console.log("error", e)
         }
     }
+
+    getAction = () => {
+        const {data: {taskName}} = this.state;
+        if(this.props.isUpdate) {
+        return <div>
+            <Button onClick={this.props.cancelHandler} size="small">Cancel</Button>
+            <Button onClick={this.props.cancelHandler} size="small" color="primary">Update</Button>
+        </div>
+        } else {
+            return <div>
+                <Button onClick={this.closeTaskInput} size="small">Cancel</Button>
+                <Button onClick={this.addTask} disabled={(taskName || '').length === 0} size="small" color="primary">Add</Button>
+            </div>
+        }
+    }
     render() {
-        const { expanded, autoFocus, open, data: { taskName } } = this.state;
+        const action = this.getAction();
+        const { expanded, autoFocus, open } = this.state;
         return (
             <div ref={this.setWrapperRef}>
                 <Alert open={open} handleClose={this.hideAlert} message="The task has been created successfully!" />
@@ -97,21 +113,22 @@ class TaskInput extends Component {
                     ExpansionPanelSummaryComponent_props={{
                         onClick: this.openTaskInput,
                         autoFocus: autoFocus,
-                        onChangeHandler: this.handleTaskNameInputChange
+                        onChangeHandler: this.handleTaskNameInputChange,
+                        name: this.props.name
                     }}
                     ExpansionPanelSummaryComponent={TaskNameInput}
                     ExpansionPanelDetailsComponent_props={{
                         onDuedateChange: this.handleDueDateInputChange,
                         onLabelsChange: this.handleLabelsInputChange,
-                        onDescriptionChange: this.handleTaskDescriptionInputChange
+                        onDescriptionChange: this.handleTaskDescriptionInputChange,
+                        description: this.props.description,
+                        dueDate: this.props.dueDate,
+                        labels: this.props.labels
                     }}
                     ExpansionPanelDetailsComponent={AdditionalTaskDetailsInput}
                     ExpansionPanelActionsComponent={
                         (props) => (
-                            <div>
-                                <Button onClick={this.closeTaskInput} size="small">Cancel</Button>
-                                <Button onClick={this.addTask} disabled={(taskName || '').length === 0} size="small" color="primary">Add</Button>
-                            </div>
+                            action
                         )
                     }
                     expanded={expanded}

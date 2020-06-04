@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskNameInput = (props) => {
     const classes = useStyles();
-    const { autoFocus, onChangeHandler, onClick } = props;
+    const { autoFocus, onChangeHandler, onClick, name } = props;
     return (
         (
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl} >
-                        <TextField autoComplete='off' onClick={onClick} onChange={(e) => onChangeHandler(e.target.value)} autoFocus={autoFocus} id="standard-required" placeholder="Add a new task..." />
+                        <TextField defaultValue={name} autoComplete='off' onClick={onClick} onChange={(e) => onChangeHandler(e.target.value)} autoFocus={autoFocus} id="standard-required" placeholder="Add a new task..." />
                     </FormControl>
                 </Grid>
             </Grid>
