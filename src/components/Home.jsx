@@ -101,13 +101,19 @@ class Home extends Component {
                 <Grid item xs={10} sm={5} md={5} mt={10}>
                   <Box mt={8}>
                     <TaskInput />
-                    <TaskListView />
                   </Box>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Header>
+        <Grid container justify="center">
+          <Grid item xs={10} sm={8} md={8}>
+            <Box mt={25}>
+              <TaskListView />
+            </Box>
+          </Grid>
+        </Grid>
       </div>
     );
   }

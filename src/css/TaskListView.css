@@ -2,16 +2,9 @@
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
-    margin-left: -20%;
     width: auto;
   }
-  .my-masonry-grid_column {
-    padding-right: 10%;
-    /* background-clip: padding-box; */
-  }
-  
-  /* Style your items */
+
   .my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
-    margin-top: 10%;
-    /* margin-right : 100px; */
+    padding: 12px;
   }
