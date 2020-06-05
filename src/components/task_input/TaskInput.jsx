@@ -8,7 +8,7 @@ import { createTasks } from '../../api/tasks'
 
 
 class TaskInput extends Component {
-    state = { expanded: this.props.expanded || false, autoFocus: false, open: false, data: {} }
+    state = { expanded: this.props.expanded || false, autoFocus: false, open: false, data: this.props.task || {} }
     componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false);
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -89,12 +89,16 @@ class TaskInput extends Component {
         }
     }
 
-    getAction = () => {
+    updateHandler = () => {
+        this.props.updateHandler(this.state.data);
+    }
+
+    getAction = () => {        
         const {data: {taskName}} = this.state;
         if(this.props.isUpdate) {
         return <div>
             <Button onClick={this.props.cancelHandler} size="small">Cancel</Button>
-            <Button onClick={this.props.cancelHandler} size="small" color="primary">Update</Button>
+            <Button onClick={this.updateHandler} size="small" color="primary">Update</Button>
         </div>
         } else {
             return <div>
@@ -114,7 +118,7 @@ class TaskInput extends Component {
                         onClick: this.openTaskInput,
                         autoFocus: autoFocus,
                         onChangeHandler: this.handleTaskNameInputChange,
-                        name: this.props.name
+                        name: this.props.taskName
                     }}
                     ExpansionPanelSummaryComponent={TaskNameInput}
                     ExpansionPanelDetailsComponent_props={{

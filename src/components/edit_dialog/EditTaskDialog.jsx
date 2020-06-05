@@ -18,6 +18,10 @@ export default function EditTaskDialog(props) {
     props.closeDialogHandler();
   };
 
+  const updateHandler = (data) => {
+    props.updateHandler(task.id, data);
+    handleClose();
+  }
   return (
     <div>
       <Dialog
@@ -26,7 +30,7 @@ export default function EditTaskDialog(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-          <TaskInput isUpdate={true} cancelHandler={handleClose} updateHandler={handleClose} expanded={true} name={task.name} description={task.description} dueDate={task.dueDate} labels={task.labels}/>
+          <TaskInput isUpdate={true} task={task} cancelHandler={handleClose} updateHandler={updateHandler} expanded={true} taskName={task.taskName} description={task.description} dueDate={task.dueDate} labels={task.labels}/>
       </Dialog>
     </div>
   );

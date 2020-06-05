@@ -76,7 +76,7 @@ export default function TaskView(props) {
                 <CardActionArea onClick={openEditDialog} classes={{ focusVisible: classes.cardActionArea, focusHighlight: classes.cardActionArea }}>
                     <CardContent>
                         <Typography className={classes.title} color="textPrimary" >
-                            {task.name}
+                            {task.taskName}
                         </Typography>
                         <Typography className={classes.date} color="textSecondary" gutterBottom>
                             {moment(task.dueDate).format(`h:mm A  dddd, MMM Do, YYYY `)}
@@ -102,7 +102,7 @@ export default function TaskView(props) {
                     </Box>
                 </CardActions>
             </Card>
-            <EditTaskDialog task={task} closeDialogHandler={closeEditDialog} open={open} />
+            <EditTaskDialog task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
         </div>
     );
 }
