@@ -1,19 +1,55 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from "@material-ui/core/Typography";
 import taskDTO from '../../dtos/tasks';
 import styleLabels from '../../utils/styleLabels'
 import EditTaskDialog from "../edit_dialog/EditTaskDialog";
+import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
+import moment from 'moment';
+import IconButton from '@material-ui/core/IconButton';
+import { green } from '@material-ui/core/colors';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
+const GreenCheckbox = withStyles({
+    root: {
+        color: green[400],
+        '&$checked': {
+            color: green[600],
+        },
+    },
+    checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
 const useStyles = makeStyles({
     root: {
-        minWidth: 275
+        minWidth: 275,
+        transition: '0.2s',
+        '&:hover': {
+            transform: 'scale(1.1)',
+        },
+        cursor: 'pointer'
     },
     title: {
-        fontSize: 14
+        fontSize: 15
     },
+    description: {
+        fontSize: 12
+    },
+    date: {
+        fontSize: 10
+    },
+    cardActionArea: {
+        backgroundColor: 'white'
+    },
+    formControlLabel: {
+        fontSize: 12
+    }
 });
 
 
@@ -21,6 +57,7 @@ export default function TaskView(props) {
     const task = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [completed, setCompleted] = React.useState(false);
 
     const openEditDialog = () => {
         setOpen(true);
@@ -35,27 +72,37 @@ export default function TaskView(props) {
     }
     return (
         <div>
-            <Card className={classes.root} variant="outlined" draggable="true">
-                <CardContent>
-                    <Typography className={classes.title} color="textPrimary" gutterBottom>
-                        {task.name}
-                    </Typography>
-                    <hr />
-                    <Typography gutterBottom variant="body2" component="p">
-                        {styleLabels(task.labels)}
-                    </Typography>
-                    <Typography>
-                        {task.dueDate}{" "}
-                        <Button size="small" onClick={openEditDialog}>
-                            Edit
-            </Button>{" "}
-                        <Button size="small" onClick={deleteHandler}>
-                            Delete
-            </Button>
-                    </Typography>
-                </CardContent>
+            <Card className={classes.root} variant="outlined" raised>
+                <CardActionArea onClick={openEditDialog} classes={{ focusVisible: classes.cardActionArea, focusHighlight: classes.cardActionArea }}>
+                    <CardContent>
+                        <Typography className={classes.title} color="textPrimary" >
+                            {task.name}
+                        </Typography>
+                        <Typography className={classes.date} color="textSecondary" gutterBottom>
+                            {moment(task.dueDate).format(`h:mm A  dddd, MMM Do, YYYY `)}
+                        </Typography>
+                        <Divider />
+                        <Box mt={1} />
+                        <Typography color="primary" gutterBottom variant="body2" component="p">
+                            {styleLabels(task.labels)}
+                        </Typography>
+                        <Typography className={classes.description} color="textSecondary" >
+                            {task.description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <Box mt={-2} />
+                <CardActions>
+                    <Box ml={1}>
+                        <FormControlLabel
+                            classes={{ label: classes.formControlLabel }}
+                            control={<GreenCheckbox checked={completed} onChange={() => { setCompleted(!completed) }} name="checkedG" />}
+                            label="Mark as completed"
+                        />
+                    </Box>
+                </CardActions>
             </Card>
-            <EditTaskDialog task={task} closeDialogHandler = {closeEditDialog} open = {open}/>
+            <EditTaskDialog task={task} closeDialogHandler={closeEditDialog} open={open} />
         </div>
     );
 }
