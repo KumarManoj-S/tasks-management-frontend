@@ -10,7 +10,7 @@ export class TaskListView extends React.Component {
     tasks: [
       {
         id: "123",
-        name: "Kesavan is crying123",
+        taskName: "Kesavan is crying123",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [
@@ -20,138 +20,148 @@ export class TaskListView extends React.Component {
           { value: "Waste" },
           { value: "Waste" },
         ],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "124",
-        name: "Kesavan is crying124",
+        taskName: "Kesavan is crying124",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "125",
-        name: "Kesavan is crying125",
+        taskName: "Kesavan is crying125",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "126",
-        name: "Kesavan is crying126",
+        taskName: "Kesavan is crying126",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "127",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "128",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "129",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "130",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "131",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "132",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "133",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "134",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "135",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "136",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "137",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "138",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
       {
         id: "139",
-        name: "Kesavan is crying",
+        taskName: "Kesavan is crying",
         description: "Cypress fucked me.",
         category: "Danger",
         labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "12-04-2020",
+        dueDate: "2020-06-13T09:37",
       },
     ],
   };
+
+  updateHandler = (taskId, newTaskData) => {
+    const tasks = this.state.tasks.filter(task => taskId != task.id)
+    this.setState((prevState) => ({
+      tasks: [
+        ...tasks,
+        newTaskData
+      ]
+    }))
+  }
 
   deleteHandler = (taskId) => {
     const tasks = this.state.tasks.filter((task) => task.id != taskId);
@@ -169,15 +179,17 @@ export class TaskListView extends React.Component {
     const tasks = this.isFilterApplied()
       ? this.getFilteredTasks()
       : this.state.tasks;
+    console.log('God show mercy', tasks)
     const items = tasks.map((task) => (
       <TaskView
         id={task.id}
-        name={task.name}
+        taskName={task.taskName}
         description={task.description}
         category={task.category}
         labels={task.labels}
         dueDate={task.dueDate}
         deleteHandler={this.deleteHandler}
+        updateHandler={this.updateHandler}
       />
     ));
     return (

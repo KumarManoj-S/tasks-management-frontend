@@ -38,7 +38,7 @@ export default function TaskView(props) {
             <Card className={classes.root} variant="outlined" draggable="true">
                 <CardContent>
                     <Typography className={classes.title} color="textPrimary" gutterBottom>
-                        {task.name}
+                        {task.taskName}
                     </Typography>
                     <hr />
                     <Typography gutterBottom variant="body2" component="p">
@@ -55,7 +55,7 @@ export default function TaskView(props) {
                     </Typography>
                 </CardContent>
             </Card>
-            <EditTaskDialog task={task} closeDialogHandler = {closeEditDialog} open = {open}/>
+            <EditTaskDialog task={task} closeDialogHandler = {closeEditDialog} open = {open} updateHandler = {props.updateHandler}/>
         </div>
     );
 }
