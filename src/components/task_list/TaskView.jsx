@@ -122,7 +122,7 @@ export default function TaskView(props) {
 
                 </CardActions>
             </Card>
-            <EditTaskDialog task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
+            <EditTaskDialog taskIndex = {props.taskIndex} task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
         </div>
     );
 }

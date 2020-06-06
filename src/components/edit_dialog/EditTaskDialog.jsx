@@ -19,7 +19,7 @@ export default function EditTaskDialog(props) {
   };
 
   const updateHandler = (data) => {
-    props.updateHandler(task.id, data);
+    props.updateHandler(props.taskIndex, data);
     handleClose();
   }
   return (

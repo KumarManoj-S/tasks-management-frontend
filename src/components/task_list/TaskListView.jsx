@@ -4,163 +4,26 @@ import Masonry from "react-masonry-css";
 import "../../css/TaskListView.css";
 import TaskFilter from "../task_filter/TaskFilter";
 import moment from "moment";
+import {getTasks} from '../../api/tasks';
 
 export class TaskListView extends React.Component {
   state = {
-    tasks: [
-      {
-        id: "123",
-        taskName: "Kesavan is crying123",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [
-          { value: "Personal" },
-          { value: "Waste" },
-          { value: "Waste" },
-          { value: "Waste" },
-          { value: "Waste" },
-        ],
-        dueDate: "2020-06-13T06:43:00Z",
-      },
-      {
-        id: "124",
-        taskName: "Need to send email",
-        description: "Email content : Yesterday night, there was a security attack in one of our internal deployments, darwin (data pipeline framework), on which some of us are working. One of the machines was compromised to carry out a DDOS attack against remote hosts",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "125",
-        taskName: "Kesavan is crying125",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "126",
-        taskName: "Kesavan is crying126",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "127",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "128",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "129",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "130",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "131",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "132",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "133",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "134",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "135",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "136",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "137",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "138",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-      {
-        id: "139",
-        taskName: "Kesavan is crying",
-        description: "Cypress fucked me.",
-        category: "Danger",
-        labels: [{ value: "Personal" }, { value: "Waste" }],
-        dueDate: "2020-06-13T09:37",
-      },
-    ],
+    tasks: []
   };
 
-  updateHandler = (taskId, newTaskData) => {
-    const tasks = this.state.tasks.filter(task => taskId != task.id)
-    this.setState((prevState) => ({
-      tasks: [
-        ...tasks,
-        newTaskData
-      ]
-    }))
+  componentDidMount() {
+    getTasks().then((tasks) => {
+      this.setState({tasks: tasks});
+    });
+  }
+
+  updateHandler = (taskIndex, newTaskData) => {
+    console.log("ena da idhu", newTaskData);
+    let tasks = this.state.tasks;
+    tasks[taskIndex] = newTaskData;
+    this.setState({tasks: tasks})
+    // put request
+    // get request
   }
 
   deleteHandler = (taskId) => {
@@ -179,11 +42,11 @@ export class TaskListView extends React.Component {
     const tasks = this.isFilterApplied()
       ? this.getFilteredTasks()
       : this.state.tasks;
-    console.log('God show mercy', tasks)
-    const items = tasks.map((task) => (
+    const items = tasks.map((task, index) => (
       <TaskView
+        taskIndex={index}
         id={task.id}
-        taskName={task.taskName}
+        taskName={task.name || task.taskName}
         description={task.description}
         category={task.category}
         labels={task.labels}
