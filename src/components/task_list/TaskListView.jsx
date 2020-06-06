@@ -4,7 +4,10 @@ import Masonry from "react-masonry-css";
 import "../../css/TaskListView.css";
 import TaskFilter from "../task_filter/TaskFilter";
 import moment from "moment";
-import {getTasks} from '../../api/tasks';
+import { getTasks } from '../../api/tasks';
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Box from '@material-ui/core/Box';
 
 export class TaskListView extends React.Component {
   state = {
@@ -33,6 +36,7 @@ export class TaskListView extends React.Component {
   };
 
   render() {
+    const { category } = this.props;
     const breakpointColumnsObj = {
       default: 3,
       1100: 2,
@@ -55,6 +59,19 @@ export class TaskListView extends React.Component {
         updateHandler={this.updateHandler}
       />
     ));
+    if (items.length === 0) {
+      return (
+        <div>
+          <Grid container justify="center">
+            <Box mt={10}>
+              <Typography color="textSecondary" >
+                You haven't created any task in the {category} category!s
+              </Typography>
+            </Box>
+          </Grid>
+        </div>
+      )
+    }
     return (
       <div className="task-list-view">
         <TaskFilter

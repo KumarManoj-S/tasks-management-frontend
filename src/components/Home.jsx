@@ -99,7 +99,7 @@ class Home extends Component {
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
                 <Grid item xs={10} sm={5} md={5} mt={10}>
-                  <Box mt={8}>
+                  <Box mt={1}>
                     <TaskInput category={selectedCategory.text} />
                   </Box>
                 </Grid>
@@ -110,7 +110,7 @@ class Home extends Component {
         <Grid container justify="center">
           <Grid item xs={10} sm={8} md={8}>
             <Box mt={25}>
-              <TaskListView />
+              <TaskListView category={selectedCategory.text} />
             </Box>
           </Grid>
         </Grid>
