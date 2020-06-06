@@ -5,7 +5,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from "@material-ui/core/Typography";
-import taskDTO from '../../dtos/tasks';
 import styleLabels from '../../utils/styleLabels'
 import EditTaskDialog from "../edit_dialog/EditTaskDialog";
 import Divider from '@material-ui/core/Divider';
@@ -79,6 +78,8 @@ export default function TaskView(props) {
     const deleteHandler = () => {
         props.deleteHandler(task.id)
     }
+    let dueDate = moment(task.dueDate);
+    dueDate = dueDate.isValid() ? dueDate.format(`h:mm A  dddd, MMM Do, YYYY `) : '';
     return (
         <div>
             <Card className={classes.root} variant="outlined" raised>
@@ -88,7 +89,7 @@ export default function TaskView(props) {
                             {task.taskName}
                         </Typography>
                         <Typography className={classes.date} color="textSecondary" gutterBottom>
-                            {moment(task.dueDate).format(`h:mm A  dddd, MMM Do, YYYY `)}
+                            {dueDate}
                         </Typography>
                         <Divider />
                         <Box mt={1} />
@@ -119,10 +120,9 @@ export default function TaskView(props) {
                             <DeleteIcon fontSize="small" />
                         </IconButton>
                     </Grid>
-
                 </CardActions>
             </Card>
-            <EditTaskDialog taskIndex = {props.taskIndex} task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
+            <EditTaskDialog taskIndex={props.taskIndex} task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
         </div>
     );
 }
