@@ -7,10 +7,11 @@ import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%'
+        width: '100%',
+        zIndex: 10
     },
     details: {
-        alignItems: 'center',
+        alignItems: 'center'
     },
     expansionPanelSummary: {
         backgroundColor: 'white !important'
@@ -23,7 +24,7 @@ const DetailedExpansionPanel = (props) => {
 
     return (
         <div className={classes.root}>
-            <ExpansionPanel expanded={expanded} >
+            <ExpansionPanel classes={{ root: classes.root }} expanded={expanded} >
                 <ExpansionPanelSummary
                     aria-controls="panel1c-content"
                     id="panel1c-header"
