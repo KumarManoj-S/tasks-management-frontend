@@ -79,8 +79,9 @@ class TaskInput extends Component {
     }
     addTask = async () => {
         const { data } = this.state;
+        const {category} = this.props;
         try {
-            await createTasks(data);
+            await createTasks({category, ...data});
             this.showAlert();
             this.closeTaskInput();
         }
