@@ -10,14 +10,27 @@ import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
 
 export class TaskListView extends React.Component {
-  state = {
-    tasks: []
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: []
+    };
+  }
+  
   componentDidMount() {
-    getTasks().then((tasks) => {
+    const { category } = this.props;
+    getTasks(category).then((tasks) => {
       this.setState({tasks: tasks});
     });
+  }
+
+  componentDidUpdate(prevProps){
+    const { category } = this.props;
+    if(prevProps.category !== category) {
+      getTasks(category).then((tasks) => {
+        this.setState({tasks: tasks});
+      });
+    }
   }
 
   updateHandler = (taskIndex, newTaskData) => {
@@ -65,7 +78,7 @@ export class TaskListView extends React.Component {
           <Grid container justify="center">
             <Box mt={10}>
               <Typography color="textSecondary" >
-                You haven't created any task in the {category} category!s
+                You haven't created any task in the {category} category!
               </Typography>
             </Box>
           </Grid>

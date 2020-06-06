@@ -18,8 +18,8 @@ export const createTasks = async (data) => {
         })
 }
 
-export const getTasks = async () => {
-    return axios.get('http://api.tasks.com:3001/tasks')
+export const getTasks = async (category) => {
+    return axios.get(config.SERVER_URL + TASK_ENDPOINT + '?category=' + category)
         .then(res => res.data)
         .catch(err => console.log('Failed to fetch the task', err))
 }
