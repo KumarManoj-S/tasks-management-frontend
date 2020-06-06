@@ -15,6 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Grid from '@material-ui/core/Grid';
 
 const GreenCheckbox = withStyles({
     root: {
@@ -49,6 +51,12 @@ const useStyles = makeStyles({
     },
     formControlLabel: {
         fontSize: 12
+    },
+    iconButton: {
+        color: '#4285cc59',
+        '&:hover': {
+            color: '#3b80c7',
+        }
     }
 });
 
@@ -58,6 +66,7 @@ export default function TaskView(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [completed, setCompleted] = React.useState(false);
+    const [showDelete, setShowDelete] = React.useState(false);
 
     const openEditDialog = () => {
         setOpen(true);
@@ -93,13 +102,24 @@ export default function TaskView(props) {
                 </CardActionArea>
                 <Box mt={-2} />
                 <CardActions>
-                    <Box ml={1}>
-                        <FormControlLabel
-                            classes={{ label: classes.formControlLabel }}
-                            control={<GreenCheckbox checked={completed} onChange={() => { setCompleted(!completed) }} name="checkedG" />}
-                            label="Mark as completed"
-                        />
-                    </Box>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                    >
+                        <Box ml={1}>
+                            <FormControlLabel
+                                classes={{ label: classes.formControlLabel }}
+                                control={<GreenCheckbox checked={completed} onChange={() => { setCompleted(!completed) }} name="checkedG" />}
+                                label="Mark as completed"
+                            />
+                        </Box>
+                        <IconButton onClick={deleteHandler} classes={{ root: classes.iconButton }}>
+                            <DeleteIcon fontSize="small" />
+                        </IconButton>
+                    </Grid>
+
                 </CardActions>
             </Card>
             <EditTaskDialog task={task} closeDialogHandler={closeEditDialog} open={open} updateHandler={props.updateHandler} />
