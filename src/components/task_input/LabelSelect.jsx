@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AsyncMutliSelect from '../ui/AsyncMutliSelect';
 
 class LabelSelect extends Component {
-    state = { values: [], options: [] };
+    state = { values: this.props.labels || [], options: [] };
 
     componentDidMount() {
         const options = [

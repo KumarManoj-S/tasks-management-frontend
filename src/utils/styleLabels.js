@@ -1,5 +1,5 @@
 const styledLabels = (arr) => {
-    const prefixedLabels = arr.map(x => '#' + x);
+    const prefixedLabels = arr.map(x => '#' + x.value);
     return prefixedLabels.reduce((a, b) => a + ' ' + b, '');
 };
 

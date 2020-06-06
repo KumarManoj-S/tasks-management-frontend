@@ -61,7 +61,7 @@ const AdditionalTaskDetailsInput = (props) => {
             </Grid>
             <Grid item xs={12}>
                 <FormControl className={classes.formControl}>
-                    <LabelSelect onChangeHandler={onLabelsChange} />
+                    <LabelSelect labels={props.labels} onChangeHandler={onLabelsChange} />
                 </FormControl>
             </Grid>
         </Grid>

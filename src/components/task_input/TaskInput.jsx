@@ -109,6 +109,7 @@ class TaskInput extends Component {
         }
     }
     render() {
+        console.log('Label should be', this.props.labels);
         const action = this.getAction();
         const { expanded, autoFocus, open } = this.state;
         return (

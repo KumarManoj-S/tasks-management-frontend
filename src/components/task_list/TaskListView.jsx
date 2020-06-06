@@ -4,10 +4,10 @@ import Masonry from "react-masonry-css";
 import "../../css/TaskListView.css";
 import TaskFilter from "../task_filter/TaskFilter";
 import moment from "moment";
-import { getTasks } from '../../api/tasks';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
+import {getTasks, updateTasks} from '../../api/tasks';
 
 export class TaskListView extends React.Component {
   constructor(props) {
@@ -16,34 +16,41 @@ export class TaskListView extends React.Component {
       tasks: []
     };
   }
-  
-  componentDidMount() {
-    const { category } = this.props;
-    getTasks(category).then((tasks) => {
-      this.setState({tasks: tasks});
-    });
-  }
 
   componentDidUpdate(prevProps){
     const { category } = this.props;
     if(prevProps.category !== category) {
       getTasks(category).then((tasks) => {
-        this.setState({tasks: tasks});
+        const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
+        this.setState({tasks: modifiedDueDatesAndLabels});
       });
     }
   }
 
-  updateHandler = (taskIndex, newTaskData) => {
-    console.log("ena da idhu", newTaskData);
+  taskAttributeModifier = task => {
+    const dueDate = moment(task.dueDate).format('YYYY-MM-DDThh:mm');
+    const labels = task.labels.map(label => {return {label: label, value: label}});
+    return {...task, dueDate, labels}
+  }
+
+  componentDidMount() {
+    const { category } = this.props;
+    getTasks(category).then((tasks) => {
+      const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
+      this.setState({tasks: modifiedDueDatesAndLabels});
+    });
+  }
+
+  updateHandler = (taskIndex, taskToUpdate) => {
     let tasks = this.state.tasks;
-    tasks[taskIndex] = newTaskData;
-    this.setState({tasks: tasks})
-    // put request
-    // get request
+    updateTasks(tasks[taskIndex]._id, taskToUpdate).then(updatedTask => {
+      tasks[taskIndex] = this.taskAttributeModifier(updatedTask);
+      this.setState({tasks: tasks});
+    });
   }
 
   deleteHandler = (taskId) => {
-    const tasks = this.state.tasks.filter((task) => task.id != taskId);
+    const tasks = this.state.tasks.filter((task) => task._id != taskId);
     this.setState({ tasks: tasks });
     alert(`Task with id ${taskId} successfully deleted`);
   };

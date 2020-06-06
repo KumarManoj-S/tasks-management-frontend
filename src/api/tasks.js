@@ -23,3 +23,10 @@ export const getTasks = async (category) => {
         .then(res => res.data)
         .catch(err => console.log('Failed to fetch the task', err))
 }
+
+export const updateTasks = (taskId, oldTaskData) => {
+    const taskToUpdate = taskDTO(oldTaskData);
+    return axios.put(`http://api.tasks.com:3001/tasks/${taskId}`, taskToUpdate)
+            .then(res => res.data)
+            .catch(err => console.log('Update failed', err));
+}
