@@ -79,11 +79,16 @@ class TaskInput extends Component {
     }
     addTask = async () => {
         const { data } = this.state;
-        const {category} = this.props;
+        const {category, handleCreateTask} = this.props;
         try {
-            await createTasks({category, ...data});
-            this.showAlert();
-            this.closeTaskInput();
+            await createTasks({category, ...data})
+                .then(data => {
+                    this.showAlert();
+                    this.closeTaskInput();
+                    handleCreateTask(data._id);
+                })
+                .catch(() => alert("Error! Please try again!"));
+            
         }
         catch (e) {
             console.log("error", e)

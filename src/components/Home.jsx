@@ -24,7 +24,11 @@ class Home extends Component {
     mobileOpen: false,
     selectedCategory: {},
     openCategoryDialog: false,
+    lastCreatedTask: '',
   };
+  handleCreateTask = (value) => {
+    this.setState({ lastCreatedTask: value });
+  }
   handleChange = (event, newValue) => {
     console.log("newValue", newValue);
     this.setState({ value: newValue });
@@ -74,6 +78,7 @@ class Home extends Component {
       mobileOpen,
       selectedCategory,
       openCategoryDialog,
+      lastCreatedTask
     } = this.state;
     return (
       <div>
@@ -101,7 +106,7 @@ class Home extends Component {
               <Grid container justify="center" spacing={2}>
                 <Grid item xs={10} sm={5} md={5} mt={10}>
                   <Box mt={1}>
-                    <TaskInput category={selectedCategory.text} />
+                    <TaskInput category={selectedCategory.text} handleCreateTask={this.handleCreateTask}/>
                   </Box>
                 </Grid>
               </Grid>
@@ -111,7 +116,7 @@ class Home extends Component {
         <Grid container justify="center">
           <Grid item xs={10} sm={8} md={8}>
             <Box mt={25}>
-              <TaskListView category={selectedCategory.text} />
+              <TaskListView category={selectedCategory.text} lastCreatedTask={lastCreatedTask} />
             </Box>
           </Grid>
         </Grid>

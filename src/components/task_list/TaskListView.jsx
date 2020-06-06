@@ -18,8 +18,8 @@ export class TaskListView extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    const { category } = this.props;
-    if(prevProps.category !== category) {
+    const { category, lastCreatedTask } = this.props;
+    if(prevProps.category !== category || prevProps.lastCreatedTask !== lastCreatedTask) {
       getTasks(category).then((tasks) => {
         const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
         this.setState({tasks: modifiedDueDatesAndLabels});
