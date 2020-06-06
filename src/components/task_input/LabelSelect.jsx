@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import AsyncMutliSelect from '../ui/AsyncMutliSelect';
+import { getLabels } from '../../api/labels';
 
 class LabelSelect extends Component {
     state = { values: this.props.labels || [], options: [] };
 
-    componentDidMount() {
-        const options = [
-            { label: 'gym', value: 'gym' },
-            { label: 'sport', value: 'sport' },
-            { label: 'health', value: 'health' }
-        ]
-        this.setState({ options: options })
+    async componentDidMount() {
+        await getLabels()
+            .then(data => data.map(value => ({ label: value, value })))
+            .then((options) => {
+                this.setState({ options: options })
+            })
+            .catch(() => {
+                this.setState({ options: [] })
+            })
+
     }
 
     handleInputChange = (newValue) => {
