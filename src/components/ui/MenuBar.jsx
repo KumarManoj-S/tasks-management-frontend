@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 120;
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MenuBar = (props) => {
-    const { title, handleDrawerToggle } = props;
+    const { title, handleDrawerToggle, userName } = props;
     const classes = useStyles();
     return (
         <div className={classes.appBar}>
@@ -41,9 +42,19 @@ const MenuBar = (props) => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography color="secondary" variant="h6" noWrap>
-                    {title}
-                </Typography>
+                <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                >
+                    <Typography color="secondary" variant="h6" noWrap>
+                        {title}
+                    </Typography>
+                    <Typography style={{ color: '#ffffffcf' }} variant="body1" noWrap>
+                        Hello, {userName}
+                    </Typography>
+                </Grid>
             </Toolbar>
         </div>
     );

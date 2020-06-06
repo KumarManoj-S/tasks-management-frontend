@@ -68,7 +68,7 @@ class Home extends Component {
     this.setState({ openCategoryDialog: false });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, userName } = this.props;
     const {
       categories,
       mobileOpen,
@@ -86,6 +86,7 @@ class Home extends Component {
           <MenuBar
             handleDrawerToggle={this.handleDrawerToggle}
             title={selectedCategory.text}
+            userName={userName}
           />
           <SideNav
             handleDrawerToggle={this.handleDrawerToggle}

@@ -8,7 +8,7 @@ const HomeWrapper = (props) => {
     if (!cookies.userId) {
         return <Redirect to="/login" />;
     }
-    return <Home {...props} />;
+    return <Home {...props} userName={cookies.userName} />;
 };
 
 export default HomeWrapper;
