@@ -7,7 +7,7 @@ import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
-import {getTasks, updateTasks} from '../../api/tasks';
+import {getTasks, updateTasks, deleteTasks} from '../../api/tasks';
 
 export class TaskListView extends React.Component {
   constructor(props) {
@@ -50,9 +50,12 @@ export class TaskListView extends React.Component {
   }
 
   deleteHandler = (taskId) => {
-    const tasks = this.state.tasks.filter((task) => task._id != taskId);
-    this.setState({ tasks: tasks });
-    alert(`Task with id ${taskId} successfully deleted`);
+    deleteTasks(taskId).then(response => {
+      if(response == 200) {
+        const tasks = this.state.tasks.filter((task) => task._id != taskId);
+        this.setState({ tasks: tasks });
+      }
+    });
   };
 
   render() {
@@ -69,7 +72,7 @@ export class TaskListView extends React.Component {
     const items = tasks.map((task, index) => (
       <TaskView
         taskIndex={index}
-        id={task.id}
+        id={task._id}
         taskName={task.name || task.taskName}
         description={task.description}
         category={task.category}

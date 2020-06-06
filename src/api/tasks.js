@@ -26,7 +26,13 @@ export const getTasks = async (category) => {
 
 export const updateTasks = (taskId, oldTaskData) => {
     const taskToUpdate = taskDTO(oldTaskData);
-    return axios.put(`http://api.tasks.com:3001/tasks/${taskId}`, taskToUpdate)
+    return axios.put(config.SERVER_URL + TASK_ENDPOINT + '/' + taskId, taskToUpdate)
             .then(res => res.data)
             .catch(err => console.log('Update failed', err));
+}
+
+export const deleteTasks = (taskId) => {
+    return axios.delete(config.SERVER_URL + TASK_ENDPOINT + '/' + taskId)
+                .then(res => res.status)
+                .catch(err => console.log('Unable to delete task', err));
 }
