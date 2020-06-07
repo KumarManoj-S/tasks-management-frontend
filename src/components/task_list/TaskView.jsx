@@ -122,7 +122,7 @@ export default function TaskView(props) {
                             <FormControlLabel
                                 classes={{ label: classes.formControlLabel }}
                                 control={<GreenCheckbox checked={completed} onChange={updateStatusHandler} name="checkedG" />}
-                                label="Mark as completed"
+                                label="Mark as Done"
                             />
                         </Box>
                         <IconButton onClick={deleteHandler} classes={{ root: classes.iconButton }}>

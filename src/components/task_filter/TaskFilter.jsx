@@ -88,14 +88,14 @@ class TaskFilter extends Component {
             <FormControlLabel
               classes={{ label: classes.label }}
               control={<BlueCheckbox checked={notCompleted} onChange={this.onNotCompletedClick} name="checkedA" />}
-              label="Yet to be completed"
+              label="To do"
             />
           </Grid>
           <Grid item >
             <FormControlLabel
               classes={{ label: classes.label }}
               control={<BlueCheckbox checked={completed} onChange={this.onCompletedClick} name="checkedA" />}
-              label="Completed"
+              label="Done"
             />
           </Grid>
           {applicableFilters.map((filter) => (
