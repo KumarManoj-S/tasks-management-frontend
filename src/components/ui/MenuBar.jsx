@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import logo from '../../images/horizontal_logo.png'
 
 const drawerWidth = 120;
 
@@ -51,6 +52,7 @@ const MenuBar = (props) => {
                     <Typography color="secondary" variant="h6" noWrap>
                         {title}
                     </Typography>
+                    <img width="120" src={logo} />
                     <Typography style={{ color: '#ffffffcf' }} variant="body1" noWrap>
                         Hello, {userName}
                     </Typography>

@@ -8,6 +8,8 @@ import { getToken } from '../api/auth'
 import { withCookies } from 'react-cookie';
 import Backdrop from '@material-ui/core/Backdrop';
 import PacmanLoader from "react-spinners/PacmanLoader";
+import Header from "./ui/Header";
+import logo from '../images/vertical_logo1.png';
 
 class LoginCallbackComponent extends Component {
     async componentDidMount() {
@@ -43,7 +45,14 @@ export const LoginCallback = withCookies(LoginCallbackComponent);
 class Login extends Component {
     render() {
         return (
-            <div style={{ backgroundColor: '#c2c2c2' }}>
+            <div style={{ backgroundColor: 'white' }}>
+                <Header>
+                    <Grid container justify="center" alignItems="center" direction="column">
+                        <Grid item>
+                            <img width="280" src={logo} alt={'Image not found'} />
+                        </Grid>
+                    </Grid>
+                </Header>
                 <Grid
                     container
                     spacing={0}
