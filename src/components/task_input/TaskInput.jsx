@@ -79,16 +79,16 @@ class TaskInput extends Component {
     }
     addTask = async () => {
         const { data } = this.state;
-        const {category, handleCreateTask} = this.props;
+        const { category, handleCreateTask } = this.props;
         try {
-            await createTasks({category, ...data})
+            await createTasks({ category, ...data })
                 .then(data => {
                     this.showAlert();
                     this.closeTaskInput();
                     handleCreateTask(data._id);
                 })
                 .catch(() => alert("Error! Please try again!"));
-            
+
         }
         catch (e) {
             console.log("error", e)
@@ -99,13 +99,13 @@ class TaskInput extends Component {
         this.props.updateHandler(this.state.data);
     }
 
-    getAction = () => {        
-        const {data: {taskName}} = this.state;
-        if(this.props.isUpdate) {
-        return <div>
-            <Button onClick={this.props.cancelHandler} size="small">Cancel</Button>
-            <Button onClick={this.updateHandler} size="small" color="primary">Update</Button>
-        </div>
+    getAction = () => {
+        const { data: { taskName } } = this.state;
+        if (this.props.isUpdate) {
+            return <div>
+                <Button onClick={this.props.cancelHandler} size="small">Cancel</Button>
+                <Button onClick={this.updateHandler} size="small" color="primary">Update</Button>
+            </div>
         } else {
             return <div>
                 <Button onClick={this.closeTaskInput} size="small">Cancel</Button>

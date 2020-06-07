@@ -47,10 +47,23 @@ export class TaskListView extends React.Component {
     this.setState({ loading: true });
     getTasks(category)
       .then((tasks) => {
+        let tasksWithInValidDates = tasks.filter(t => !t.dueDate);
+        let tasksWithValidDates = tasks.filter(t => t.dueDate);
+        tasksWithValidDates = (tasksWithValidDates || []).sort(function (a, b) {
+          var keyA = new Date(a.dueDate),
+            keyB = new Date(b.dueDate);
+          if (keyA < keyB) return -1;
+          if (keyA > keyB) return 1;
+          return 0;
+        });
+        return [...tasksWithValidDates, ...tasksWithInValidDates];
+      })
+      .then((tasks) => {
+        console.log(tasks)
         const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier);
         this.setState({ tasks: modifiedDueDatesAndLabels, loading: false });
       })
-      .catch(() => alert("Error fetching the tasks! Please try again!"));
+      .catch((e) => alert("Error fetching the tasks! Please try again!" + String(e)));
   };
 
   componentDidMount() {
