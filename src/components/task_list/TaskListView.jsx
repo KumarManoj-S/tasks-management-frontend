@@ -135,6 +135,23 @@ export class TaskListView extends React.Component {
         </div>
       );
     }
+    if ((this.state.tasks || []).length !== (tasks || []).length) {
+      return (
+        <div>
+          <TaskFilter
+            applicableFilters={this.getFiltersApplicable()}
+            onFiltersChange={this.onFiltersChange}
+          />
+          <Grid container justify="center">
+            <Box mt={10}>
+              <Typography color="textSecondary">
+                No tasks available with respect to the filters!
+              </Typography>
+            </Box>
+          </Grid>
+        </div>
+      );
+    }
     if (items.length === 0) {
       return (
         <div>
