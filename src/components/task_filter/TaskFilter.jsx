@@ -1,22 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import {
-  Checkbox,
-  FormControlLabel,
-  Box,
-  IconButton
-} from "@material-ui/core";
+import { Checkbox, FormControlLabel, Box, IconButton } from "@material-ui/core";
 import DropdownFilter from "./DropdownFilter";
 import { withStyles } from "@material-ui/core/styles";
-import Grid from '@material-ui/core/Grid';
-import { blue } from '@material-ui/core/colors';
-import { TASK_WITHOUT_DATE_FILTER_LABEL } from '../../constants';
+import Grid from "@material-ui/core/Grid";
+import { blue } from "@material-ui/core/colors";
+import { TASK_WITHOUT_DATE_FILTER_LABEL } from "../../constants";
 
 const BlueCheckbox = withStyles({
   root: {
     color: blue[400],
-    '&$checked': {
+    "&$checked": {
       color: blue[600],
     },
   },
@@ -40,7 +35,6 @@ class TaskFilter extends Component {
     return selectedFilters;
   };
   render() {
-    const { isFilterOpen } = this.state;
     return (
       <div>
         <Grid container justify="center">
@@ -48,7 +42,7 @@ class TaskFilter extends Component {
             <FilterListIcon />
           </IconButton>
         </Grid>
-        {isFilterOpen && this.renderFilterSection()}
+        {this.renderFilterSection()}
       </div>
     );
   }
@@ -61,10 +55,10 @@ class TaskFilter extends Component {
       if (state.completed) {
         selectValues.push(true);
       }
-      this.handleTaskStatusFilterChange(selectValues)
-      return { notCompleted: !state.notCompleted }
-    })
-  }
+      this.handleTaskStatusFilterChange(selectValues);
+      return { notCompleted: !state.notCompleted };
+    });
+  };
   onCompletedClick = () => {
     this.setState((state) => {
       let selectValues = [];
@@ -74,27 +68,51 @@ class TaskFilter extends Component {
       if (!state.completed) {
         selectValues.push(true);
       }
-      this.handleTaskStatusFilterChange(selectValues)
-      return { completed: !state.completed }
-    })
-  }
+      this.handleTaskStatusFilterChange(selectValues);
+      return { completed: !state.completed };
+    });
+  };
   renderFilterSection = () => {
     const { applicableFilters, classes } = this.props;
-    const { notCompleted, completed } = this.state;
+    const { notCompleted, completed, isFilterOpen } = this.state;
+    let filterDisplayStyle = {};
+    if (!isFilterOpen) {
+      filterDisplayStyle = {
+        display: "none",
+      };
+    }
     return (
       <div>
-        <Grid container spacing={4} justify="center" alignItems="center">
-          <Grid item  >
+        <Grid
+          container
+          spacing={4}
+          justify="center"
+          alignItems="center"
+          style={filterDisplayStyle}
+        >
+          <Grid item>
             <FormControlLabel
               classes={{ label: classes.label }}
-              control={<BlueCheckbox checked={notCompleted} onChange={this.onNotCompletedClick} name="checkedA" />}
+              control={
+                <BlueCheckbox
+                  checked={notCompleted}
+                  onChange={this.onNotCompletedClick}
+                  name="checkedA"
+                />
+              }
               label="To do"
             />
           </Grid>
-          <Grid item  >
+          <Grid item>
             <FormControlLabel
               classes={{ label: classes.label }}
-              control={<BlueCheckbox checked={completed} onChange={this.onCompletedClick} name="checkedA" />}
+              control={
+                <BlueCheckbox
+                  checked={completed}
+                  onChange={this.onCompletedClick}
+                  name="checkedA"
+                />
+              }
               label="Done"
             />
           </Grid>
@@ -118,7 +136,7 @@ class TaskFilter extends Component {
       selectedFilters,
     });
     this.props.onFiltersChange(selectedFilters);
-  }
+  };
   handleFilterChange = (filterKey, selectedValues) => {
     const selectedFilters = {
       ...this.state.selectedFilters,
@@ -166,9 +184,9 @@ const useStyles = (theme) => ({
     display: "flex",
   },
   label: {
-    color: '#393939c4',
-    fontSize: 15
-  }
+    color: "#393939c4",
+    fontSize: 15,
+  },
 });
 
 export default withStyles(useStyles)(TaskFilter);
