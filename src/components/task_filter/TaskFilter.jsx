@@ -6,7 +6,6 @@ import DropdownFilter from "./DropdownFilter";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { blue } from "@material-ui/core/colors";
-import { TASK_WITHOUT_DATE_FILTER_LABEL } from "../../constants";
 
 const BlueCheckbox = withStyles({
   root: {

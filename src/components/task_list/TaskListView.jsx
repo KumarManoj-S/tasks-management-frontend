@@ -83,8 +83,8 @@ export class TaskListView extends React.Component {
 
   deleteHandler = (taskId) => {
     deleteTasks(taskId).then((response) => {
-      if (response == 200) {
-        const tasks = this.state.tasks.filter((task) => task._id != taskId);
+      if (response === 200) {
+        const tasks = this.state.tasks.filter((task) => task._id !== taskId);
         this.setState({ tasks: tasks });
       }
     });

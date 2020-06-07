@@ -1,13 +1,8 @@
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import React from "react";
-import AdditionalTaskDetailsInput from '../task_input/AdditionalTaskDetailsInput';
-import TaskNameInput from '../task_input/TaskNameInput'
-import { DialogContent } from "@material-ui/core";
 import TaskInput from "../task_input/TaskInput";
-
 
 export default function EditTaskDialog(props) {
   const task = props.task;
@@ -21,7 +16,7 @@ export default function EditTaskDialog(props) {
   const updateHandler = (data) => {
     props.updateHandler(props.taskIndex, data);
     handleClose();
-  }
+  };
   return (
     <div>
       <Dialog
@@ -30,7 +25,17 @@ export default function EditTaskDialog(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-          <TaskInput isUpdate={true} task={task} cancelHandler={handleClose} updateHandler={updateHandler} expanded={true} taskName={task.taskName} description={task.description} dueDate={task.dueDate} labels={task.labels}/>
+        <TaskInput
+          isUpdate={true}
+          task={task}
+          cancelHandler={handleClose}
+          updateHandler={updateHandler}
+          expanded={true}
+          taskName={task.taskName}
+          description={task.description}
+          dueDate={task.dueDate}
+          labels={task.labels}
+        />
       </Dialog>
     </div>
   );

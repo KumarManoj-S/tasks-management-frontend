@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import {
   Select,
   InputLabel,
   Chip,
   MenuItem,
-  FormControl
+  FormControl,
 } from "@material-ui/core";
 
 export default function DropdownFilter({ filter, onChange }) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: '100%',
-    }
+      minWidth: "100%",
+    },
   }));
   const classes = useStyles();
   const [selectedValues, setSelected] = useState([]);
