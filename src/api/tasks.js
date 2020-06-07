@@ -36,3 +36,9 @@ export const deleteTasks = (taskId) => {
                 .then(res => res.status)
                 .catch(err => console.log('Unable to delete task', err));
 }
+
+export const updateStatus = (taskId, status) => {
+    return axios.put(config.SERVER_URL + TASK_ENDPOINT + '/' + taskId, {status: status})
+            .then(res => res.data)
+            .catch(err => console.log('Status change failed', err));
+}

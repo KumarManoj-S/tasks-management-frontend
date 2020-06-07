@@ -64,7 +64,7 @@ export default function TaskView(props) {
     const task = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [completed, setCompleted] = React.useState(false);
+    const [completed, setCompleted] = React.useState(props.status);
     const [showDelete, setShowDelete] = React.useState(false);
 
     const openEditDialog = () => {
@@ -77,6 +77,11 @@ export default function TaskView(props) {
 
     const deleteHandler = () => {
         props.deleteHandler(task.id)
+    }
+
+    const updateStatusHandler = () => {
+        setCompleted(!completed);
+        props.updateStatusHandler(task.taskIndex, !completed)
     }
     let dueDate = moment(task.dueDate);
     dueDate = dueDate.isValid() ? dueDate.format(`h:mm A  dddd, MMM Do, YYYY `) : '';
@@ -112,7 +117,7 @@ export default function TaskView(props) {
                         <Box ml={1}>
                             <FormControlLabel
                                 classes={{ label: classes.formControlLabel }}
-                                control={<GreenCheckbox checked={completed} onChange={() => { setCompleted(!completed) }} name="checkedG" />}
+                                control={<GreenCheckbox checked={completed} onChange={updateStatusHandler} name="checkedG" />}
                                 label="Mark as completed"
                             />
                         </Box>
