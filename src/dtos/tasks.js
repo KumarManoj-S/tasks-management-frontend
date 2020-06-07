@@ -2,7 +2,7 @@ import moment from 'moment';
 
 
 const taskDTO = (data) => {
-    const dueDate = data.dueDate ? new moment(data.dueDate).utc().format() : null;
+    const dueDate = (data.dueDate && data.dueDate != 'Invalid date') ? new moment(data.dueDate).utc().format() : null;
     return {
         name: data.taskName,
         description: data.description || null,
