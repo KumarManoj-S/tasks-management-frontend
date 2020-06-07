@@ -8,22 +8,21 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
 import {getTasks, updateTasks, deleteTasks} from '../../api/tasks';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export class TaskListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
+      loading: false
     };
   }
 
   componentDidUpdate(prevProps){
     const { category, lastCreatedTask } = this.props;
     if(prevProps.category !== category || prevProps.lastCreatedTask !== lastCreatedTask) {
-      getTasks(category).then((tasks) => {
-        const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
-        this.setState({tasks: modifiedDueDatesAndLabels});
-      });
+      this.loadTasks(category);
     }
   }
 
@@ -33,12 +32,19 @@ export class TaskListView extends React.Component {
     return {...task, dueDate, labels}
   }
 
+  loadTasks = (category) => {
+    this.setState({loading: true});
+    getTasks(category)
+      .then((tasks) => {
+        const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
+        this.setState({tasks: modifiedDueDatesAndLabels, loading: false});
+      })
+      .catch(() => alert("Error fetching the tasks! Please try again!"));
+  }
+
   componentDidMount() {
     const { category } = this.props;
-    getTasks(category).then((tasks) => {
-      const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
-      this.setState({tasks: modifiedDueDatesAndLabels});
-    });
+    this.loadTasks(category);
   }
 
   updateHandler = (taskIndex, taskToUpdate) => {
@@ -60,6 +66,7 @@ export class TaskListView extends React.Component {
 
   render() {
     const { category } = this.props;
+    const {loading} = this.state;
     const breakpointColumnsObj = {
       default: 3,
       1100: 2,
@@ -82,6 +89,18 @@ export class TaskListView extends React.Component {
         updateHandler={this.updateHandler}
       />
     ));
+    if(loading) {
+      return (
+        <div>
+          <PacmanLoader
+            css={{ marginTop: 300, marginLeft: '38%' }}
+            size={30}
+            color={"#1568ac"}
+            loading={true}
+          />
+        </div>
+      )
+    }
     if (items.length === 0) {
       return (
         <div>
