@@ -47,10 +47,23 @@ export class TaskListView extends React.Component {
     this.setState({ loading: true });
     getTasks(category)
       .then((tasks) => {
+        let tasksWithInValidDates = tasks.filter(t => !t.dueDate);
+        let tasksWithValidDates = tasks.filter(t => t.dueDate);
+        tasksWithValidDates = (tasksWithValidDates || []).sort(function (a, b) {
+          var keyA = new Date(a.dueDate),
+            keyB = new Date(b.dueDate);
+          if (keyA < keyB) return -1;
+          if (keyA > keyB) return 1;
+          return 0;
+        });
+        return [...tasksWithValidDates, ...tasksWithInValidDates];
+      })
+      .then((tasks) => {
+        console.log(tasks)
         const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier);
         this.setState({ tasks: modifiedDueDatesAndLabels, loading: false });
       })
-      .catch(() => alert("Error fetching the tasks! Please try again!"));
+      .catch((e) => alert("Error fetching the tasks! Please try again!" + String(e)));
   };
 
   componentDidMount() {
@@ -119,6 +132,23 @@ export class TaskListView extends React.Component {
             color={"#1568ac"}
             loading={true}
           />
+        </div>
+      );
+    }
+    if ((this.state.tasks || []).length !== (tasks || []).length) {
+      return (
+        <div>
+          <TaskFilter
+            applicableFilters={this.getFiltersApplicable()}
+            onFiltersChange={this.onFiltersChange}
+          />
+          <Grid container justify="center">
+            <Box mt={10}>
+              <Typography color="textSecondary">
+                No tasks available with respect to the filters!
+              </Typography>
+            </Box>
+          </Grid>
         </div>
       );
     }

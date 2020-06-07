@@ -91,7 +91,7 @@ export default function TaskView(props) {
     dueDate = dueDate.isValid() ? dueDate.format(`h:mm A  dddd, MMM Do, YYYY `) : '';
     return (
         <div>
-            <Card className={classes.root} variant="outlined" raised>
+            <Card className={classes.root} raised>
                 <CardActionArea onClick={openEditDialog} classes={{ focusVisible: classes.cardActionArea, focusHighlight: classes.cardActionArea }}>
                     <CardContent>
                         <Typography className={classes.title} color="textPrimary" >
