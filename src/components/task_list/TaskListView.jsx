@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
 import { getTasks, updateTasks, deleteTasks, updateStatus } from '../../api/tasks';
 import PacmanLoader from "react-spinners/PacmanLoader";
-import Divider from '@material-ui/core/Divider';
 
 export class TaskListView extends React.Component {
   constructor(props) {
@@ -115,6 +114,10 @@ export class TaskListView extends React.Component {
     if (items.length === 0) {
       return (
         <div>
+          <TaskFilter
+            applicableFilters={this.getFiltersApplicable()}
+            onFiltersChange={this.onFiltersChange}
+          />
           <Grid container justify="center">
             <Box mt={10}>
               <Typography color="textSecondary" >
@@ -166,8 +169,9 @@ export class TaskListView extends React.Component {
     const filteredTasks = transformedTasksForFiltering.filter((task) => {
       return this.validateFilterForTask(task);
     });
-    const filterdTaskIds = filteredTasks.map((task) => task.id);
-    return this.state.tasks.filter((task) => filterdTaskIds.includes(task.id));
+    const filterdTaskIds = filteredTasks.map((task) => task._id);
+    const result = this.state.tasks.filter((task) => filterdTaskIds.includes(task._id));
+    return result;
   };
   validateFilterForTask = (task) => {
     let isValid = false;

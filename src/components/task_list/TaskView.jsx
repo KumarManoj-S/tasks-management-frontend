@@ -67,6 +67,10 @@ export default function TaskView(props) {
     const [completed, setCompleted] = React.useState(props.status);
     const [showDelete, setShowDelete] = React.useState(false);
 
+    React.useEffect(() => {
+        setCompleted(props.status);
+    }, [props.status]);
+
     const openEditDialog = () => {
         setOpen(true);
     };

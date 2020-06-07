@@ -10,6 +10,17 @@ import {
 import DropdownFilter from "./DropdownFilter";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import { blue } from '@material-ui/core/colors';
+
+const BlueCheckbox = withStyles({
+  root: {
+    color: blue[400],
+    '&$checked': {
+      color: blue[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 class TaskFilter extends Component {
   constructor(props) {
@@ -30,7 +41,6 @@ class TaskFilter extends Component {
   render() {
     const { isFilterOpen } = this.state;
     const { classes } = this.props;
-    console.log("isFilterOpen", isFilterOpen)
     return (
       <div>
         <Grid container justify="center">
@@ -42,20 +52,49 @@ class TaskFilter extends Component {
       </div>
     );
   }
+  onNotCompletedClick = () => {
+    this.setState((state) => {
+      let selectValues = [];
+      if (!state.notCompleted) {
+        selectValues.push(false);
+      }
+      if (state.completed) {
+        selectValues.push(true);
+      }
+      this.handleTaskStatusFilterChange(selectValues)
+      return { notCompleted: !state.notCompleted }
+    })
+  }
+  onCompletedClick = () => {
+    this.setState((state) => {
+      let selectValues = [];
+      if (state.notCompleted) {
+        selectValues.push(false);
+      }
+      if (!state.completed) {
+        selectValues.push(true);
+      }
+      this.handleTaskStatusFilterChange(selectValues)
+      return { completed: !state.completed }
+    })
+  }
   renderFilterSection = () => {
-    const { applicableFilters } = this.props;
+    const { applicableFilters, classes } = this.props;
+    const { notCompleted, completed } = this.state;
     return (
       <div>
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item >
             <FormControlLabel
-              control={<Checkbox checked={false} onChange={() => { }} name="checkedA" />}
+              classes={{ label: classes.label }}
+              control={<BlueCheckbox checked={notCompleted} onChange={this.onNotCompletedClick} name="checkedA" />}
               label="Yet to be completed"
             />
           </Grid>
           <Grid item >
             <FormControlLabel
-              control={<Checkbox checked={false} onChange={() => { }} name="checkedA" />}
+              classes={{ label: classes.label }}
+              control={<BlueCheckbox checked={completed} onChange={this.onCompletedClick} name="checkedA" />}
               label="Completed"
             />
           </Grid>
@@ -70,6 +109,16 @@ class TaskFilter extends Component {
       </div>
     );
   };
+  handleTaskStatusFilterChange = (selectedValues) => {
+    const selectedFilters = {
+      ...this.state.selectedFilters,
+      status: selectedValues,
+    };
+    this.setState({
+      selectedFilters,
+    });
+    this.props.onFiltersChange(selectedFilters);
+  }
   handleFilterChange = (filterKey, selectedValues) => {
     const selectedFilters = {
       ...this.state.selectedFilters,
@@ -116,6 +165,10 @@ const useStyles = (theme) => ({
   filter: {
     display: "flex",
   },
+  label: {
+    color: '#393939c4',
+    fontSize: 15
+  }
 });
 
 export default withStyles(useStyles)(TaskFilter);
