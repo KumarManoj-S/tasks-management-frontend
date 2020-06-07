@@ -149,7 +149,7 @@ export class TaskListView extends React.Component {
               <Typography color="textSecondary">
                 {this.isFilterApplied()
                   ? "No matching tasks"
-                  : "You haven't created any task in the {category} category!"}
+                  : `You haven't created any task in the ${category} category!`}
               </Typography>
             </Box>
           </Grid>
