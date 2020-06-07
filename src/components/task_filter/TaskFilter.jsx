@@ -83,15 +83,15 @@ class TaskFilter extends Component {
     const { notCompleted, completed } = this.state;
     return (
       <div>
-        <Grid container spacing={1} justify="center" alignItems="center">
-          <Grid item >
+        <Grid container spacing={4} justify="center" alignItems="center">
+          <Grid item  >
             <FormControlLabel
               classes={{ label: classes.label }}
               control={<BlueCheckbox checked={notCompleted} onChange={this.onNotCompletedClick} name="checkedA" />}
               label="To do"
             />
           </Grid>
-          <Grid item >
+          <Grid item  >
             <FormControlLabel
               classes={{ label: classes.label }}
               control={<BlueCheckbox checked={completed} onChange={this.onCompletedClick} name="checkedA" />}
