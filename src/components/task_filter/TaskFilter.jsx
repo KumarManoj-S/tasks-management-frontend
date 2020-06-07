@@ -40,7 +40,6 @@ class TaskFilter extends Component {
   };
   render() {
     const { isFilterOpen } = this.state;
-    const { classes } = this.props;
     return (
       <div>
         <Grid container justify="center">

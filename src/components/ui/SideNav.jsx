@@ -44,7 +44,7 @@ const DrawerList = (props) => {
         <div>
             <List>
                 {categories.map((text, index) => (
-                    <Box key={text} mt={2}>
+                    <Box key={text} mb={2}>
                         <div onClick={() => {
                             handleCategorySelection({ index, text });
                             handleDrawerToggle();
