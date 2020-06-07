@@ -8,7 +8,8 @@ const taskDTO = (data) => {
         description: data.description || null,
         category: data.category || null,
         labels: (data.labels || []).map(o => o.value),
-        dueDate: dueDate
+        dueDate: dueDate,
+        status : data.status
     }
 }
 

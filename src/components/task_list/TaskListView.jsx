@@ -7,7 +7,7 @@ import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
-import {getTasks, updateTasks, deleteTasks} from '../../api/tasks';
+import {getTasks, updateTasks, deleteTasks, updateStatus} from '../../api/tasks';
 
 export class TaskListView extends React.Component {
   constructor(props) {
@@ -58,6 +58,14 @@ export class TaskListView extends React.Component {
     });
   };
 
+  updateStatusHandler = (taskIndex, status) => {
+    let tasks = this.state.tasks;
+    updateStatus(tasks[taskIndex]._id, status).then(updatedTask => {
+      tasks[taskIndex].status = updatedTask.status;
+      this.setState({tasks: tasks});
+    })
+  }
+
   render() {
     const { category } = this.props;
     const breakpointColumnsObj = {
@@ -78,8 +86,10 @@ export class TaskListView extends React.Component {
         category={task.category}
         labels={task.labels}
         dueDate={task.dueDate}
+        status = {task.status || false}
         deleteHandler={this.deleteHandler}
         updateHandler={this.updateHandler}
+        updateStatusHandler={this.updateStatusHandler}
       />
     ));
     if (items.length === 0) {
