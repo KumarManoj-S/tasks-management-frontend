@@ -132,7 +132,9 @@ export class TaskListView extends React.Component {
           <Grid container justify="center">
             <Box mt={10}>
               <Typography color="textSecondary">
-                You haven't created any task in the {category} category!
+                {this.isFilterApplied()
+                  ? "No matching tasks"
+                  : "You haven't created any task in the {category} category!"}
               </Typography>
             </Box>
           </Grid>
@@ -200,6 +202,9 @@ export class TaskListView extends React.Component {
         if (isValid) {
           break;
         }
+      }
+      if (!isValid && valuesToSatisfy.length > 0) {
+        return false;
       }
     }
     return isValid;
