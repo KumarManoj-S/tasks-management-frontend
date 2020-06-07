@@ -6,15 +6,15 @@ import {
   InputLabel,
   Chip,
   MenuItem,
-  FormControl,
+  FormControl
 } from "@material-ui/core";
 
 export default function DropdownFilter({ filter, onChange }) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 120,
-    },
+      minWidth: '100%',
+    }
   }));
   const classes = useStyles();
   const [selectedValues, setSelected] = useState([]);
@@ -23,7 +23,7 @@ export default function DropdownFilter({ filter, onChange }) {
     onChange(filterKey, values);
   };
   return (
-    <div className="filter-dropdown" key={filter.filterName}>
+    <div key={filter.filterName}>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-mutiple-chip-label">
           {filter.filterName}

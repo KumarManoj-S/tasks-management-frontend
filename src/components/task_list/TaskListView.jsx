@@ -7,8 +7,9 @@ import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
-import {getTasks, updateTasks, deleteTasks, updateStatus} from '../../api/tasks';
+import { getTasks, updateTasks, deleteTasks, updateStatus } from '../../api/tasks';
 import PacmanLoader from "react-spinners/PacmanLoader";
+import Divider from '@material-ui/core/Divider';
 
 export class TaskListView extends React.Component {
   constructor(props) {
@@ -19,25 +20,25 @@ export class TaskListView extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     const { category, lastCreatedTask } = this.props;
-    if(prevProps.category !== category || prevProps.lastCreatedTask !== lastCreatedTask) {
+    if (prevProps.category !== category || prevProps.lastCreatedTask !== lastCreatedTask) {
       this.loadTasks(category);
     }
   }
 
   taskAttributeModifier = task => {
     const dueDate = moment(task.dueDate).format('YYYY-MM-DDThh:mm');
-    const labels = task.labels.map(label => {return {label: label, value: label}});
-    return {...task, dueDate, labels}
+    const labels = task.labels.map(label => { return { label: label, value: label } });
+    return { ...task, dueDate, labels }
   }
 
   loadTasks = (category) => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     getTasks(category)
       .then((tasks) => {
         const modifiedDueDatesAndLabels = tasks.map(this.taskAttributeModifier)
-        this.setState({tasks: modifiedDueDatesAndLabels, loading: false});
+        this.setState({ tasks: modifiedDueDatesAndLabels, loading: false });
       })
       .catch(() => alert("Error fetching the tasks! Please try again!"));
   }
@@ -51,13 +52,13 @@ export class TaskListView extends React.Component {
     let tasks = this.state.tasks;
     updateTasks(tasks[taskIndex]._id, taskToUpdate).then(updatedTask => {
       tasks[taskIndex] = this.taskAttributeModifier(updatedTask);
-      this.setState({tasks: tasks});
+      this.setState({ tasks: tasks });
     });
   }
 
   deleteHandler = (taskId) => {
     deleteTasks(taskId).then(response => {
-      if(response == 200) {
+      if (response == 200) {
         const tasks = this.state.tasks.filter((task) => task._id != taskId);
         this.setState({ tasks: tasks });
       }
@@ -68,13 +69,13 @@ export class TaskListView extends React.Component {
     let tasks = this.state.tasks;
     updateStatus(tasks[taskIndex]._id, status).then(updatedTask => {
       tasks[taskIndex].status = updatedTask.status;
-      this.setState({tasks: tasks});
+      this.setState({ tasks: tasks });
     })
   }
 
   render() {
     const { category } = this.props;
-    const {loading} = this.state;
+    const { loading } = this.state;
     const breakpointColumnsObj = {
       default: 3,
       1100: 2,
@@ -93,13 +94,13 @@ export class TaskListView extends React.Component {
         category={task.category}
         labels={task.labels}
         dueDate={task.dueDate}
-        status = {task.status || false}
+        status={task.status || false}
         deleteHandler={this.deleteHandler}
         updateHandler={this.updateHandler}
         updateStatusHandler={this.updateStatusHandler}
       />
     ));
-    if(loading) {
+    if (loading) {
       return (
         <div>
           <PacmanLoader
@@ -130,6 +131,7 @@ export class TaskListView extends React.Component {
           applicableFilters={this.getFiltersApplicable()}
           onFiltersChange={this.onFiltersChange}
         />
+        <br />
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
