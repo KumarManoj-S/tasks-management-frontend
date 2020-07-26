@@ -1,7 +1,14 @@
 import axios from 'axios';
 import config from '../config'
+import { getCookie } from '../utils/cookie'
 
 axios.defaults.withCredentials = true;
+
+axios.interceptors.request.use(function (config) {
+    const authToken = getCookie('authToken')
+    config.headers.authToken = authToken;
+    return config;
+});
 
 export const getCategories = (code) => {
     return axios(config.SERVER_URL + '/categories', { withCredentials: true, method: 'get' })
