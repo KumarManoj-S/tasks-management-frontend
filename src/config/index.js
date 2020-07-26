@@ -4,7 +4,7 @@ const dev = {
 }
 
 const prod = {
-    SERVER_URL: 'https://tasksmanagementapi.herokuapp.com',
+    SERVER_URL: 'https://eazytasksapi.herokuapp.com',
     COOKIE_DOMAIN: '.herokuapp.com'
 }
 
