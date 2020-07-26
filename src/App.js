@@ -40,8 +40,8 @@ class App extends Component {
             <Route exact path="/login">
               <Login />
             </Route>
-            <Route exact path="/" render={(props) => <HomeWrapper {...props} />} />
-            <Route exact path="/login/callback" component={LoginCallback}>
+            <Route exact path="/home" render={(props) => <HomeWrapper {...props} />} />
+            <Route exact path="/" component={LoginCallback}>
             </Route>
           </Router>
         </ThemeProvider >
